@@ -2,15 +2,16 @@
 user="frp"
 group="frp"
 home="/var/lib/frp"
+service="frps"
 
-# create group if not exists
+# 创建组
 egrep "^$group" /etc/group >& /dev/null
 if [ $? -ne 0 ]
 then
     groupadd $group
 fi
 
-# create user if not exists
+# 创建用户
 egrep "^$user" /etc/passwd >& /dev/null
 if [ $? -ne 0 ]
 then
@@ -19,20 +20,20 @@ fi
 
 # create frp home dir if not exists
 if [ ! -d "$home" ]; then
-    mkdir "$home"
+    mkdir -p "$home"
 fi
 
-# download
-wget -P /var/lib/frp/ https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/frps
-wget -P /var/lib/frp/ https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/frps.ini
-wget -P /usr/lib/systemd/system/ https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/frps.service
+# 下载服务及配置
+wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/${service}"
+wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/${service}.ini"
+wget -P /usr/lib/systemd/system/ "https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/${service}.service"
 
-# owners
-chown frp:frp /var/lib/frp/frps
-chown frp:frp /var/lib/frp/frps.ini
-touch /var/lib/frp/frps.log
-chown frp:frp /var/lib/frp/frps.log
-chmod +x /var/lib/frp/frps
+# 文件及权限配置
+touch "/var/lib/frp/${service}.log"
+chown frp:frp "/var/lib/frp/${service}"
+chown frp:frp "/var/lib/frp/${service}.ini"
+chown frp:frp "/var/lib/frp/${service}.log"
+chmod +x "/var/lib/frp/${service}"
 
-# status
-systemctl status frps
+# 测试服务状态
+systemctl status ${service}

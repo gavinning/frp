@@ -3,6 +3,7 @@ user="frp"
 group="frp"
 home="/var/lib/frp"
 service="frpc"
+latest="frp_0.37.1_linux_amd64"
 
 # 创建组
 egrep "^$group" /etc/group >& /dev/null
@@ -27,9 +28,9 @@ fi
 
 # 下载服务及配置
 echo "download ${service}"
-wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/${service}"
-wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/${service}.ini"
-wget -P /usr/lib/systemd/system/ "https://raw.githubusercontent.com/gavinning/frp/master/core/frp_0.21.0_linux_amd64/${service}.service"
+wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/$latest/${service}"
+wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/$latest/${service}.ini"
+wget -P /usr/lib/systemd/system/ "https://raw.githubusercontent.com/gavinning/frp/master/core/$latest/${service}.service"
 
 # 文件及权限配置
 touch "/var/lib/frp/${service}.log"

@@ -3,7 +3,7 @@ user="frp"
 group="frp"
 home="/var/lib/frp"
 service="frpc"
-latest="frp_0.37.1_linux_amd64"
+latest="frp_0.46.1_linux_amd64"
 
 # 创建组
 egrep "^$group" /etc/group >& /dev/null

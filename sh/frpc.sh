@@ -30,7 +30,7 @@ fi
 echo "download ${service}"
 wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/$latest/${service}"
 wget -P /var/lib/frp/ "https://raw.githubusercontent.com/gavinning/frp/master/core/$latest/${service}.ini"
-wget -P /usr/lib/systemd/system/ "https://raw.githubusercontent.com/gavinning/frp/master/core/$latest/${service}.service"
+wget -P /usr/lib/systemd/system/ "https://raw.githubusercontent.com/gavinning/frp/master/core/${service}.service"
 
 # 文件及权限配置
 touch "/var/lib/frp/${service}.log"

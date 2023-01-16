@@ -1,0 +1,18 @@
+[Unit]
+Description=frpc
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+User=frp
+Group=frp
+
+Type=simple
+ExecStart=/var/lib/frp/frpc -c /var/lib/frp/frpc.ini
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+
+# Restart=on-failure
+# PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target
